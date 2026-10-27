@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Retro-Present — дизайн-система</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Sans:wght@400;500;600&family=VT323&family=Space+Mono:wght@400;700&display=swap" />
+<style>
+:root{
+--cream:#F2EBDC;--putty:#D9CFB8;--bone:#E6DCC6;--charcoal:#2B2724;--smoke:#5E5750;
+--teal:#2F6F6B;--mint:#A8CFC0;--mustard:#D9A43B;--orange:#C4572B;--salmon:#E79A8A;--maroon:#6B2A2A;
+--crt-bg:#0D1A12;--phosphor:#6CFF8A;--amber:#FFB000;
+--r-s:2px;--r-m:6px;--r-l:14px;
+--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;
+--bevel-up:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.18),0 2px 0 rgba(0,0,0,.25);
+--bevel-down:inset 0 2px 3px rgba(0,0,0,.25);
+--recess:inset 0 2px 4px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,255,255,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--charcoal);font:400 16px/1.55 "IBM Plex Sans",sans-serif}
+.x-wrap{max-width:1080px;margin:0 auto;padding:var(--s5) var(--s4) var(--s7)}
+h1,h2,h3{font-family:Michroma,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.06em;margin:0}
+.x-mono{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke)}
+.x-panel{background:var(--putty);border-radius:var(--r-l);box-shadow:var(--bevel-up);padding:var(--s5)}
+section{margin-top:var(--s7)}
+.x-dymo{display:inline-flex;align-items:center;gap:var(--s3);background:var(--charcoal);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-s);font-size:15px;
+  text-shadow:0 -1px 0 rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.35);box-shadow:var(--bevel-up);transform:rotate(-.6deg);margin-bottom:var(--s5);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 2px,transparent 2px 5px)}
+.x-dymo small{font:12px "Space Mono",monospace;opacity:.7}
+.x-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+/* CRT */
+.x-crt{position:relative;background:var(--crt-bg);color:var(--phosphor);font:22px/1.25 VT323,monospace;border-radius:var(--r-l);padding:var(--s5);
+  box-shadow:var(--recess),0 0 0 6px var(--charcoal),0 0 0 8px var(--smoke);text-shadow:0 0 6px rgba(108,255,138,.7);overflow:hidden}
+.x-crt::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55))}
+.x-cursor{display:inline-block;width:.55em;height:1em;background:var(--phosphor);vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* hero */
+.x-hero{display:grid;gap:var(--s5);grid-template-columns:1.1fr 1fr;align-items:center}
+.x-hero .x-crt{min-height:200px;display:flex;align-items:flex-end;font-size:28px}
+.x-hero h1{font-size:clamp(26px,5vw,44px);line-height:1.15}
+.x-hero p.x-sub{font-size:18px;margin:var(--s3) 0 var(--s5);color:var(--smoke)}
+.x-row{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+.x-plate{display:flex;justify-content:space-between;margin-bottom:var(--s4)}
+/* keycap */
+.x-key{font:700 13px "Space Mono",monospace;letter-spacing:.06em;text-transform:uppercase;min-height:44px;padding:var(--s3) var(--s4);
+  border:1px solid rgba(0,0,0,.25);border-radius:var(--r-m);background:var(--bone);color:var(--charcoal);box-shadow:var(--bevel-up);cursor:pointer;transition:transform .06s,box-shadow .06s}
+.x-key:active,.x-key[aria-pressed="true"]{box-shadow:var(--bevel-down);transform:translateY(2px)}
+.x-key:focus-visible,.x-sw:focus-visible,.x-chip:focus-visible,.x-input:focus-visible{outline:2px dashed var(--teal);outline-offset:3px}
+.x-key--orange{background-color:#AD4D26;color:#fff}
+.x-key--putty{background:var(--putty)}
+.x-key--maroon{background:var(--maroon);color:#fff}
+/* LED */
+.x-led{display:inline-flex;align-items:center;gap:var(--s2)}
+.x-led i{width:12px;height:12px;border-radius:50%;background:#4a4a40;box-shadow:var(--recess)}
+.x-led--green i{background:var(--phosphor);box-shadow:0 0 8px var(--phosphor),inset 0 -2px 2px rgba(0,0,0,.3)}
+.x-led--amber i{background:var(--amber);box-shadow:0 0 8px var(--amber),inset 0 -2px 2px rgba(0,0,0,.3);animation:blink 1.2s steps(1) infinite}
+.x-led--red i{background:var(--salmon)}
+/* principles */
+.x-card{background:#fffaf0;border-radius:var(--r-s);padding:var(--s5) var(--s4) var(--s4);box-shadow:0 2px 0 rgba(0,0,0,.12);position:relative;
+  background-image:linear-gradient(transparent 46px,var(--salmon) 46px 47px,transparent 47px),repeating-linear-gradient(transparent 0 23px,rgba(47,111,107,.18) 23px 24px);background-position:0 0,0 24px}
+.x-card .x-mono{position:absolute;top:var(--s2);right:var(--s3)}
+.x-card h3{font-size:14px;margin:var(--s2) 0 var(--s4)}
+.x-card p{margin:0;line-height:24px}
+/* swatches */
+.x-chip{all:unset;cursor:pointer;display:block;background:var(--bone);border-radius:var(--r-m);box-shadow:var(--bevel-up);padding:var(--s2)}
+.x-chip:active{box-shadow:var(--bevel-down);transform:translateY(2px)}
+.x-chip span{display:block;height:64px;border-radius:var(--r-s);box-shadow:var(--recess);margin-bottom:var(--s2)}
+.x-chip b{font:12px Michroma,sans-serif;text-transform:uppercase;display:block}
+.x-chip code{font:12px "Space Mono",monospace}
+.x-chip em{display:block;font-style:normal;font-size:13px;color:var(--smoke)}
+.x-sw-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+/* type */
+.x-spec{display:grid;grid-template-columns:160px 1fr;gap:var(--s4);align-items:baseline;padding:var(--s4) 0;border-bottom:1px dashed var(--smoke)}
+.x-spec:last-child{border:0}
+/* components */
+.x-demo{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.x-demo>.x-panel{padding:var(--s4)}
+.x-demo h3{font-size:12px;margin-bottom:var(--s4)}
+.x-sw{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:var(--s3);min-height:44px;font:12px "Space Mono",monospace}
+.x-sw .x-track{width:64px;height:30px;border-radius:var(--r-m);background:var(--charcoal);box-shadow:var(--recess);position:relative}
+.x-sw .x-track::after{content:"";position:absolute;top:3px;left:3px;width:28px;height:24px;border-radius:4px;background:var(--bone);box-shadow:var(--bevel-up);transition:left .15s}
+.x-sw[aria-checked="true"] .x-track{background:var(--teal)}
+.x-sw[aria-checked="true"] .x-track::after{left:33px}
+.x-label{display:inline-block;background:var(--charcoal);color:var(--bone);font:12px "Space Mono",monospace;letter-spacing:.1em;padding:2px var(--s2);border-radius:var(--r-s);margin-bottom:var(--s2)}
+.x-input{width:100%;font:16px "Space Mono",monospace;padding:var(--s3);border:0;border-radius:var(--r-m);background:var(--bone);box-shadow:var(--recess);color:var(--charcoal)}
+.x-input[aria-invalid="true"]{background:var(--salmon)}
+.x-err{font:12px "Space Mono",monospace;color:var(--maroon);min-height:18px;margin:var(--s1) 0 0}
+.x-clock{position:relative;background:#140d02;border-radius:var(--r-m);box-shadow:var(--recess);padding:var(--s2) var(--s4);font:56px/1 VT323,monospace;color:var(--amber);text-shadow:0 0 8px rgba(255,176,0,.7);letter-spacing:.06em;text-align:center}
+.x-clock::before{content:"88:88:88";position:absolute;inset:var(--s2) var(--s4);color:rgba(255,176,0,.08);text-shadow:none}
+.x-vu{display:flex;gap:3px;background:var(--charcoal);padding:var(--s2);border-radius:var(--r-m);box-shadow:var(--recess)}
+.x-vu i{flex:1;height:22px;border-radius:1px;background:#3a3430}
+.x-vu i.on{background:var(--mint)}.x-vu i.on.w{background:var(--mustard)}.x-vu i.on.h{background:var(--orange)}
+.x-ticket{position:relative;display:grid;grid-template-columns:1fr 90px;background:var(--bone);border-radius:var(--r-m);box-shadow:var(--bevel-up);overflow:hidden}
+.x-ticket>div{padding:var(--s4)}
+.x-ticket>div+div{border-left:3px dotted var(--smoke);background:var(--mint);display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font:12px "Space Mono",monospace}
+.x-ticket b{font:15px Michroma,sans-serif;display:block;margin:var(--s1) 0}
+.x-stamp{position:absolute;right:100px;bottom:var(--s3);border:3px double var(--teal);color:var(--teal);background:var(--cream);font:13px Michroma,sans-serif;padding:var(--s1) var(--s2);transform:rotate(-12deg);opacity:.85;border-radius:var(--r-s)}
+dialog{border:0;padding:0;background:transparent;max-width:min(560px,92vw);width:100%}
+dialog::backdrop{background:rgba(43,39,36,.7)}
+dialog .x-crt{font-size:20px}
+/* console */
+.x-console{display:grid;grid-template-columns:2fr 1fr;gap:var(--s5)}
+.x-log{list-style:none;margin:var(--s2) 0 0;padding:0}
+.x-log li{padding:var(--s1) 0;border-bottom:1px dashed rgba(108,255,138,.25)}
+.x-side{display:flex;flex-direction:column;gap:var(--s3);background:var(--bone);border-radius:var(--r-m);box-shadow:var(--recess);padding:var(--s4)}
+pre.x-crt{font-size:18px;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.x-toast{position:fixed;left:50%;bottom:var(--s5);transform:translate(-50%,120px);background:var(--charcoal);color:var(--phosphor);font:20px VT323,monospace;padding:var(--s2) var(--s4);border-radius:var(--r-m);box-shadow:var(--bevel-up);transition:transform .2s;z-index:9}
+.x-toast.show{transform:translate(-50%,0)}
+footer{margin-top:var(--s7);padding-top:var(--s4);border-top:2px solid var(--charcoal)}
+@media (max-width:760px){.x-hero,.x-console{grid-template-columns:1fr}.x-spec{grid-template-columns:1fr;gap:var(--s1)}.x-demo{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page x-wrap" id="top">
+<main>
+  <header class="x-panel">
+    <div class="x-plate x-mono"><span>RP-83 · Модель 0427</span><span>Сер. № 1983-РП</span></div>
+    <div class="x-hero">
+      <div class="x-crt" aria-label="RETRO-PRESENT / СИСТЕМА ГОТОВА"><div><span id="typed" aria-hidden="true"></span><span class="x-cursor"></span></div></div>
+      <div>
+        <p class="x-mono">Дизайн-система · v1.0</p>
+        <h1>Retro-Present</h1>
+        <p class="x-sub">Будущее, каким его видели в 1983-м</p>
+        <div class="x-row">
+          <button class="x-key x-key--orange" data-copy-tokens>Скопировать токены</button>
+          <a class="x-key x-key--putty" href="#components" style="text-decoration:none;display:inline-flex;align-items:center">К компонентам</a>
+        </div>
+        <div class="x-row x-mono" style="margin-top:var(--s5)">
+          <span class="x-led x-led--green"><i></i>Питание</span>
+          <span class="x-led x-led--amber"><i></i>Обмен</span>
+          <span class="x-led"><i></i>Ошибка</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="principles">
+    <h2 class="x-dymo"><small>01</small>Принципы</h2>
+    <div class="x-grid">
+      <div class="x-card"><span class="x-mono">П-01</span><h3>Тактильность</h3><p>Всё нажимается пальцем.</p></div>
+      <div class="x-card"><span class="x-mono">П-02</span><h3>Тёплый пластик</h3><p>Тёплый пластик, а не стекло.</p></div>
+      <div class="x-card"><span class="x-mono">П-03</span><h3>Экран-объект</h3><p>Экран — отдельный объект в корпусе.</p></div>
+      <div class="x-card"><span class="x-mono">П-04</span><h3>Бюрократическая точность</h3><p>Номера, коды, штампы.</p></div>
+    </div>
+  </section>
+
+  <section id="color">
+    <h2 class="x-dymo"><small>02</small>Цвет</h2>
+    <p class="x-mono">Нажмите на фишку, чтобы скопировать HEX</p>
+    <div class="x-grid x-sw-grid" id="swatches"></div>
+  </section>
+
+  <section id="type">
+    <h2 class="x-dymo"><small>03</small>Типографика</h2>
+    <div class="x-panel">
+      <div class="x-spec"><span class="x-mono">Display · Michroma 40</span><span style="font:40px/1.1 Michroma,sans-serif;text-transform:uppercase">Ретро</span></div>
+      <div class="x-spec"><span class="x-mono">Заголовок · Michroma 20</span><span style="font:20px Michroma,sans-serif;text-transform:uppercase">Журнал полётов</span></div>
+      <div class="x-spec"><span class="x-mono">Текст · IBM Plex Sans 16</span><span>Машина работает тихо и надёжно. Каждое действие подтверждается щелчком.</span></div>
+      <div class="x-spec"><span class="x-mono">Метка · Space Mono 12</span><span class="x-mono" style="color:var(--charcoal)">Форма № 27-Б · Код 0427</span></div>
+      <div class="x-spec"><span class="x-mono">Экран · VT323 28</span><span style="font:28px VT323,monospace;color:var(--teal)">&gt; ЗАГРУЗКА ЗАВЕРШЕНА_</span></div>
+    </div>
+  </section>
+
+  <section id="components">
+    <h2 class="x-dymo"><small>04</small>Компоненты</h2>
+    <div class="x-demo">
+      <div class="x-panel"><h3>Клавиши</h3>
+        <div class="x-row">
+          <button class="x-key x-key--orange">Пуск</button>
+          <button class="x-key x-key--putty">Отмена</button>
+          <button class="x-key x-key--maroon">Стереть</button>
+          <button class="x-key x-key--putty" aria-pressed="true">Нажата</button>
+        </div>
+      </div>
+      <div class="x-panel"><h3>Тумблер и индикаторы</h3>
+        <div class="x-row">
+          <button class="x-sw" role="switch" aria-checked="true"><span class="x-track"></span><span class="x-swl">ВКЛ</span></button>
+          <span class="x-led x-led--green x-mono"><i></i>Норма</span>
+          <span class="x-led x-led--amber x-mono"><i></i>Ожидание</span>
+          <span class="x-led x-led--red x-mono"><i></i>Сбой</span>
+        </div>
+      </div>
+      <div class="x-panel"><h3>Поле ввода</h3>
+        <label class="x-label" for="code">КОД РЕЙСА</label>
+        <input class="x-input" id="code" placeholder="0000" maxlength="4" inputmode="numeric" aria-describedby="code-err" />
+        <p class="x-err" id="code-err" aria-live="polite"></p>
+      </div>
+      <div class="x-panel"><h3>Часы</h3><div class="x-clock" id="clock" aria-live="off">00:00:00</div></div>
+      <div class="x-panel"><h3>Индикатор уровня</h3><div class="x-vu" id="vu" role="progressbar" aria-label="Уровень сигнала" aria-valuemin="0" aria-valuemax="100"></div></div>
+      <div class="x-panel"><h3>Талон</h3>
+        <div class="x-ticket"><div><span class="x-mono">Посадочный талон</span><b>Рейс №0427</b>Готов к вылету</div><div>ULLI · 26.10</div><span class="x-stamp">ОДОБРЕНО</span></div>
+      </div>
+      <div class="x-panel"><h3>Терминал</h3>
+        <p style="margin-top:0">Модальное окно RP-OS. Закрывается клавишей Esc.</p>
+        <button class="x-key x-key--orange" id="open-term">Открыть терминал</button>
+      </div>
+    </div>
+    <dialog id="term" aria-label="Терминал RP-OS v1.0">
+      <div class="x-crt">
+        <div>RP-OS v1.0<br>(C) 1983 РЕТРО-НАСТОЯЩЕЕ<br>ПАМЯТЬ: 640К · ОК<br>НАЖМИТЕ ESC ДЛЯ ВЫХОДА<br>&gt; <span class="x-cursor"></span></div>
+        <form method="dialog" style="margin-top:var(--s4);position:relative;z-index:1"><button class="x-key x-key--putty">Закрыть [ESC]</button></form>
+      </div>
+    </dialog>
+  </section>
+
+  <section id="example">
+    <h2 class="x-dymo"><small>05</small>Пример экрана</h2>
+    <div class="x-panel x-console">
+      <div class="x-crt">
+        <div>ЖУРНАЛ ПОЛЁТОВ · 3 ЗАП.</div>
+        <ul class="x-log">
+          <li>26.10 · Ми-8 · ULLI→ULMM · 2:35</li>
+          <li>24.10 · Ми-8 · ULMM→ULAA · 3:10</li>
+          <li>21.10 · Ми-8 · ULAA→ULLI · 4:05</li>
+        </ul>
+      </div>
+      <div class="x-side">
+        <span class="x-label">ПУЛЬТ</span>
+        <button class="x-sw" role="switch" aria-checked="true"><span class="x-track"></span><span class="x-swl">ВКЛ</span></button>
+        <button class="x-sw" role="switch" aria-checked="false"><span class="x-track"></span><span class="x-swl">ВЫКЛ</span></button>
+        <span class="x-led x-led--green x-mono"><i></i>Связь</span>
+        <span class="x-led x-led--amber x-mono"><i></i>Запись</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="tokens">
+    <h2 class="x-dymo"><small>06</small>Токены</h2>
+    <div class="x-row" style="margin-bottom:var(--s4)"><button class="x-key x-key--orange" data-copy-tokens>Скопировать</button></div>
+<pre class="x-crt" id="tokens-code" tabindex="0">:root {
+  --cream: #F2EBDC;   /* фон страницы */
+  --putty: #D9CFB8;   /* панели */
+  --bone: #E6DCC6;
+  --charcoal: #2B2724; /* текст */
+  --smoke: #5E5750;
+  --teal: #2F6F6B;    /* акцент */
+  --mint: #A8CFC0;
+  --mustard: #D9A43B;
+  --orange: #C4572B;  /* действие */
+  --salmon: #E79A8A;
+  --maroon: #6B2A2A;  /* опасность */
+  --crt-bg: #0D1A12;
+  --phosphor: #6CFF8A;
+  --amber: #FFB000;
+  --r-s: 2px; --r-m: 6px; --r-l: 14px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px;
+  --bevel-up: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -2px 0 rgba(0,0,0,.18), 0 2px 0 rgba(0,0,0,.25);
+  --bevel-down: inset 0 2px 3px rgba(0,0,0,.25);
+  --recess: inset 0 2px 4px rgba(0,0,0,.35), inset 0 -1px 0 rgba(255,255,255,.4);
+}</pre>
+  </section>
+</main>
+<footer><p class="x-mono">Вдохновлено визуальным языком сериала «Маниак» (2018). Неофициально.</p></footer>
+</div>
+<div class="x-toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var $=function(s){return document.querySelector(s)};
+var toastT;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show")},1600)}
+function copy(text,el){
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){toast("Скопировано")},function(){sel(el)})}else sel(el);
+}
+function sel(el){if(!el)return;var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);
+  try{document.execCommand("copy");toast("Скопировано")}catch(e){toast("Выделено — нажмите Ctrl+C")}}
+// typing
+var msg="RETRO-PRESENT\nСИСТЕМА ГОТОВА",out=$("#typed");
+if(reduce){out.innerHTML=msg.replace("\n","<br>")}else{var i=0;(function step(){if(i>msg.length)return;out.innerHTML=msg.slice(0,i).replace("\n","<br>");i++;setTimeout(step,i===14?400:90)})()}
+// tokens copy
+document.querySelectorAll("[data-copy-tokens]").forEach(function(b){b.addEventListener("click",function(){var c=$("#tokens-code");copy(c.textContent,c)})});
+// swatches
+var sw=[["cream","#F2EBDC","Фон страницы"],["putty","#D9CFB8","Панели"],["bone","#E6DCC6","Клавиши, поля"],["charcoal","#2B2724","Текст"],["smoke","#5E5750","Вторичный текст"],["teal","#2F6F6B","Акцент"],["mint","#A8CFC0","Мягкий акцент"],["mustard","#D9A43B","Предупреждение"],["orange","#C4572B","Действие"],["salmon","#E79A8A","Ошибка поля"],["maroon","#6B2A2A","Опасность"],["crt-bg","#0D1A12","Фон экрана"],["phosphor","#6CFF8A","Люминофор"],["amber","#FFB000","Янтарный дисплей"]];
+var g=$("#swatches");sw.forEach(function(s){var b=document.createElement("button");b.className="x-chip";b.setAttribute("aria-label","Скопировать "+s[1]+" — "+s[0]);
+  b.innerHTML='<span style="background:var(--'+s[0]+')"></span><b>'+s[0]+'</b><code>'+s[1]+'</code><em>'+s[2]+'</em>';
+  b.addEventListener("click",function(){copy(s[1],b.querySelector("code"))});g.appendChild(b)});
+// switches
+document.querySelectorAll(".x-sw").forEach(function(b){b.addEventListener("click",function(){var on=b.getAttribute("aria-checked")!=="true";b.setAttribute("aria-checked",on);b.querySelector(".x-swl").textContent=on?"ВКЛ":"ВЫКЛ"})});
+// input validation
+var inp=$("#code"),err=$("#code-err");inp.addEventListener("input",function(){var bad=inp.value&&!/^\d{1,4}$/.test(inp.value);inp.setAttribute("aria-invalid",!!bad);err.textContent=bad?"ОШИБКА: ТОЛЬКО ЦИФРЫ":""});
+// clock
+function tick(){var d=new Date(),p=function(n){return String(n).padStart(2,"0")};$("#clock").textContent=p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds())}tick();setInterval(tick,1000);
+// VU
+var vu=$("#vu"),N=20;for(var k=0;k<N;k++){var s=document.createElement("i");if(k>=13)s.className="w";if(k>=17)s.className="h";vu.appendChild(s)}
+var segs=vu.children;function setVu(v){vu.setAttribute("aria-valuenow",v);var n=Math.round(v/100*N);for(var j=0;j<N;j++)segs[j].classList.toggle("on",j<n)}
+if(reduce)setVu(65);else{var lvl=60;setInterval(function(){lvl=Math.max(15,Math.min(100,lvl+(Math.random()*40-20)));setVu(Math.round(lvl))},180)}
+// modal
+var dlg=$("#term");$("#open-term").addEventListener("click",function(){dlg.showModal()});
+})();
+</script>
+</body>
+</html>
