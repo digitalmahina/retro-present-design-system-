@@ -1,0 +1,11 @@
+/* Retro-Present design tokens */
+:root{
+--cream:#F2EBDC;--putty:#D9CFB8;--bone:#E6DCC6;--charcoal:#2B2724;--smoke:#5E5750;
+--teal:#2F6F6B;--mint:#A8CFC0;--mustard:#D9A43B;--orange:#C4572B;--salmon:#E79A8A;--maroon:#6B2A2A;
+--crt-bg:#0D1A12;--phosphor:#6CFF8A;--amber:#FFB000;
+--r-s:2px;--r-m:6px;--r-l:14px;
+--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;
+--bevel-up:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.18),0 2px 0 rgba(0,0,0,.25);
+--bevel-down:inset 0 2px 3px rgba(0,0,0,.25);
+--recess:inset 0 2px 4px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,255,255,.4);
+}
